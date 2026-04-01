@@ -2,32 +2,226 @@
   "swagger": "2.0",
   "info": {
     "title": "Library API",
-    "description": "This API is a ...",
+    "description": "API for managing library users and books",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "cse341-project-2-1yyy.onrender.com",
   "basePath": "/",
-  "schemes": [
-    "http"
-  ],
+  "schemes": ["https"],
   "paths": {
-    "/": {
+    "/login": {
       "get": {
-        "description": "",
+        "tags": ["Authentication"],
+        "description": "Login with GitHub OAuth. Redirects to GitHub for authentication.",
         "responses": {
-          "200": {
-            "description": "OK"
-          }
+          "302": { "description": "Redirects to GitHub for authentication" }
         }
       }
     },
-    "/api-docs/": {
+    "/logout": {
       "get": {
-        "description": "",
+        "tags": ["Authentication"],
+        "description": "Logout current user and redirect to home page.",
         "responses": {
-          "default": {
-            "description": ""
+          "302": { "description": "Redirects to home page after logout" }
+        }
+      }
+    },
+    "/contacts/": {
+      "get": {
+        "tags": ["Library Users"],
+        "description": "Get all library users. No authentication required.",
+        "produces": ["application/json"],
+        "responses": {
+          "200": { "description": "OK" },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+      "post": {
+        "tags": ["Library Users"],
+        "description": "Create a new library user. Requires authentication.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": ["firstName", "lastName", "email", "membershipType", "phone", "joinDate", "birthday"],
+              "properties": {
+                "firstName":      { "type": "string",  "example": "Jane" },
+                "lastName":       { "type": "string",  "example": "Doe" },
+                "email":          { "type": "string",  "example": "jane@example.com" },
+                "membershipType": { "type": "string",  "example": "standard" },
+                "phone":          { "type": "string",  "example": "555-123-4567" },
+                "joinDate":       { "type": "string",  "example": "March 1, 2024" },
+                "birthday":       { "type": "string",  "example": "April 17, 1993" }
+              }
+            }
           }
+        ],
+        "responses": {
+          "201": { "description": "Created" },
+          "400": { "description": "Bad Request - Validation Error" },
+          "401": { "description": "Unauthorized - Must be logged in" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+    "/contacts/{id}": {
+      "get": {
+        "tags": ["Library Users"],
+        "description": "Get a library user by ID. No authentication required.",
+        "produces": ["application/json"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+      "put": {
+        "tags": ["Library Users"],
+        "description": "Update a library user by ID. Requires authentication.",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": ["firstName", "lastName", "email", "membershipType", "phone", "joinDate", "birthday"],
+              "properties": {
+                "firstName":      { "type": "string",  "example": "Jane" },
+                "lastName":       { "type": "string",  "example": "Doe" },
+                "email":          { "type": "string",  "example": "jane@example.com" },
+                "membershipType": { "type": "string",  "example": "premium" },
+                "phone":          { "type": "string",  "example": "555-123-4567" },
+                "joinDate":       { "type": "string",  "example": "March 1, 2024" },
+                "birthday":       { "type": "string",  "example": "April 17, 1993" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": { "description": "No Content" },
+          "400": { "description": "Bad Request - Validation Error" },
+          "401": { "description": "Unauthorized - Must be logged in" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+      "delete": {
+        "tags": ["Library Users"],
+        "description": "Delete a library user by ID. Requires authentication.",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "401": { "description": "Unauthorized - Must be logged in" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+    "/books/": {
+      "get": {
+        "tags": ["Books"],
+        "description": "Get all books. No authentication required.",
+        "produces": ["application/json"],
+        "responses": {
+          "200": { "description": "OK" },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+      "post": {
+        "tags": ["Books"],
+        "description": "Create a new book. Requires authentication.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": ["title", "author", "genre", "publishedYear", "isbn"],
+              "properties": {
+                "title":         { "type": "string",  "example": "The Great Gatsby" },
+                "author":        { "type": "string",  "example": "F. Scott Fitzgerald" },
+                "genre":         { "type": "string",  "example": "Fiction" },
+                "publishedYear": { "type": "integer", "example": 1925 },
+                "isbn":          { "type": "string",  "example": "978-0-7432-7356-5" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": { "description": "Created" },
+          "400": { "description": "Bad Request - Validation Error" },
+          "401": { "description": "Unauthorized - Must be logged in" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+    "/books/{id}": {
+      "get": {
+        "tags": ["Books"],
+        "description": "Get a book by ID. No authentication required.",
+        "produces": ["application/json"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+      "put": {
+        "tags": ["Books"],
+        "description": "Update a book by ID. Requires authentication.",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": ["title", "author", "genre", "publishedYear", "isbn"],
+              "properties": {
+                "title":         { "type": "string",  "example": "The Great Gatsby" },
+                "author":        { "type": "string",  "example": "F. Scott Fitzgerald" },
+                "genre":         { "type": "string",  "example": "Classic" },
+                "publishedYear": { "type": "integer", "example": 1925 },
+                "isbn":          { "type": "string",  "example": "978-0-7432-7356-5" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": { "description": "No Content" },
+          "400": { "description": "Bad Request - Validation Error" },
+          "401": { "description": "Unauthorized - Must be logged in" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+      "delete": {
+        "tags": ["Books"],
+        "description": "Delete a book by ID. Requires authentication.",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "401": { "description": "Unauthorized - Must be logged in" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
         }
       }
     }
