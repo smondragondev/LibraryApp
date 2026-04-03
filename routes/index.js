@@ -25,6 +25,7 @@ router.get('/professional', (req, res) => {
 
 router.use('/contacts', require('./contacts'));
 router.use('/books', require('./books'));
+router.use('/staff', require('./staff'));
 router.use('/', require('./swagger'));
 
 module.exports = router;

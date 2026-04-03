@@ -38,6 +38,9 @@ importers:
       nodemon:
         specifier: ^3.1.14
         version: 3.1.14
+      swagger:
+        specifier: ^0.0.1
+        version: 0.0.1
       swagger-autogen:
         specifier: ^2.23.7
         version: 2.23.7
@@ -841,6 +844,10 @@ packages:
     engines: {node: '>= v0.10.32'}
     peerDependencies:
       express: '>=4.0.0 || >=5.0.0-beta'
+
+  swagger@0.0.1:
+    resolution: {integrity: sha512-ycI/EDUcVlf7w07jwsw/xvFXFiKxgPPJGIkT1w9lgKLNGAldCj8JbQUR9EH+oV+kzOI/++wmctVYCLOe93VC6w==}
+    engines: {node: ~0.6.6}
 
   to-regex-range@5.0.1:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
@@ -1699,6 +1706,8 @@ snapshots:
     dependencies:
       express: 5.2.1
       swagger-ui-dist: 5.32.1
+
+  swagger@0.0.1: {}
 
   to-regex-range@5.0.1:
     dependencies:
