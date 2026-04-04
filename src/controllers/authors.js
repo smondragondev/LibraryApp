@@ -73,7 +73,19 @@ exports.create = async (req, res) => {
         mainGenre: "Fiction",
         books: ["Book 1", "Book 2"]
     }
-} */
+    }
+
+    #swagger.responses[201] = { 
+        description: 'Author created successfully',
+        schema: { id: '65f9a1b2c3d4e5f6g7h8i9j0' }
+    }
+    #swagger.responses[400] = { 
+        description: 'Validation error in the provided data' 
+    }
+    #swagger.responses[500] = { 
+        description: 'Internal server error' 
+    }
+  */
   if (!req.body.firstName) {
     return res.status(400).send({
       message: 'Content can not be empty',
@@ -119,7 +131,19 @@ exports.update = async (req, res) => {
         mainGenre: "Fiction",
         books: ["Book 1", "Book 2"]
     }
-} */
+    }
+
+    #swagger.responses[204] = { 
+        description: 'Author information updated successfully',
+        schema: { id: '65f9a1b2c3d4e5f6g7h8i9j0' }
+    }
+    #swagger.responses[400] = { 
+        description: 'Validation error in the provided data' 
+    }
+    #swagger.responses[500] = { 
+        description: 'Internal server error' 
+    }
+  */
   if (!req.body) {
     return res.status(400).send({
       message: 'Data to update can not be empty!',
