@@ -1,7 +1,27 @@
 const Staff = require('../models/staff');
 
 const getAll = async (req, res) => {
-  //#swagger.tags=['Library Staff']
+  /* #swagger.tags = ['Staff']
+     #swagger.summary = 'Get all library staff'
+     #swagger.description = 'Retrieves a list of all library staff registered in the database.'
+     #swagger.security = [{ "github_auth": [] }]
+
+     #swagger.responses[200] = { 
+        description: 'A list of library staff retrieved successfully',
+        schema: [{ 
+            $firstName: 'John', 
+            $lastName: 'Doe', 
+            $email: 'john.doe@example.com',
+            $role: 'admin',
+            $dateBirth: '08-02-2000',
+            $position: 'cashier',
+            $startDay: '06-24-2025'
+        }]
+     }
+     #swagger.responses[500] = { 
+        description: 'Internal server error while retrieving the staff list' 
+     }
+  */
   try {
     const staff = await Staff.getAllStaff();
     res.setHeader('Content-Type', 'application/json');
@@ -12,7 +32,36 @@ const getAll = async (req, res) => {
 };
 
 const getSingle = async (req, res) => {
-  //#swagger.tags=['Library Staff']
+  /* #swagger.tags = ['Staff']
+     #swagger.summary = 'Get a single staff member by ID'
+     #swagger.description = 'Returns a specific staff member from the database using their unique MongoDB ObjectId.'
+     
+     #swagger.parameters['id'] = {
+        in: 'path',
+        description: 'The unique ID of the staff member',
+        required: true,
+        type: 'string'
+     }
+
+     #swagger.responses[200] = { 
+        description: 'Staff member found and retrieved successfully',
+        schema: { 
+            $firstName: 'John', 
+            $lastName: 'Doe', 
+            $email: 'john.doe@example.com',
+            $role: 'admin',
+            $dateBirth: '08-02-2000',
+            $position: 'cashier',
+            $startDay: '06-24-2025'
+        }
+     }
+     #swagger.responses[404] = { 
+        description: 'Staff member not found in the database' 
+     }
+     #swagger.responses[500] = { 
+        description: 'Internal server error while retrieving a staff member' 
+     }
+  */
   try {
     const staff = await Staff.getStaffById(req.params.id);
     if (!staff) {
@@ -26,7 +75,37 @@ const getSingle = async (req, res) => {
 };
 
 const createStaff = async (req, res) => {
-  //#swagger.tags=['Library Staff']
+  /* #swagger.tags = ['Staff']
+     #swagger.summary = 'Create a new staff member'
+     #swagger.description = 'Creates a new staff member after validating firstName, lastName, email, role, dateBirth, position, startDay.'
+     #swagger.security = [{ "github_auth": [] }]
+    
+     #swagger.parameters['body'] = {
+        in: 'body',
+        description: 'New staff information',
+        required: true,
+        schema: { 
+            $firstName: 'John', 
+            $lastName: 'Doe', 
+            $email: 'john.doe@example.com',
+            $role: 'admin',
+            $dateBirth: '08-02-2000',
+            $position: 'cashier',
+            $startDay: '06-24-2025'
+        }
+    }
+
+    #swagger.responses[201] = { 
+        description: 'Staff member created successfully',
+        schema: { id: '65f9a1b2c3d4e5f6g7h8i9j0' }
+    }
+    #swagger.responses[400] = { 
+        description: 'Validation error in the provided data' 
+    }
+    #swagger.responses[500] = { 
+        description: 'Internal server error' 
+    }
+  */
   const { firstName, lastName, email, role, dateBirth, position, startDay } = req.body;
 
   if (!firstName || typeof firstName !== 'string' || firstName.trim() === '') {
@@ -65,7 +144,37 @@ const createStaff = async (req, res) => {
 };
 
 const updateStaff = async (req, res) => {
-  //#swagger.tags=['Library Staff']
+  /* #swagger.tags = ['Staff']
+     #swagger.summary = 'Update a staff member'
+     #swagger.description = 'Updates an staff member after validating firstName, lastName, email, role, dateBirth, position, startDay.'
+     #swagger.security = [{ "github_auth": [] }]
+    
+     #swagger.parameters['body'] = {
+        in: 'body',
+        description: 'Update staff member information',
+        required: true,
+        schema: { 
+            $firstName: 'John', 
+            $lastName: 'Doe', 
+            $email: 'john.doe@example.com',
+            $role: 'admin',
+            $dateBirth: '08-02-2000',
+            $position: 'cashier',
+            $startDay: '06-24-2025'
+        }
+    }
+
+    #swagger.responses[204] = { 
+        description: 'User updated successfully',
+        schema: { id: '65f9a1b2c3d4e5f6g7h8i9j0' }
+    }
+    #swagger.responses[400] = { 
+        description: 'Validation error in the provided data' 
+    }
+    #swagger.responses[500] = { 
+        description: 'Internal server error' 
+    }
+  */
   const { firstName, lastName, email, role, dateBirth, position, startDay } = req.body;
 
   if (!firstName || typeof firstName !== 'string' || firstName.trim() === '') {
@@ -104,7 +213,28 @@ const updateStaff = async (req, res) => {
 };
 
 const deleteStaff = async (req, res) => {
-  //#swagger.tags=['Library Staff']
+  /* #swagger.tags = ['Staff']
+     #swagger.summary = 'Delete a staff member'
+     #swagger.description = 'Permanently removes a staff member from the database using their unique ID.'
+     #swagger.security = [{ "github_auth": [] }]
+
+     #swagger.parameters['id'] = {
+        in: 'path',
+        description: 'The unique ID of the staff member to delete',
+        required: true,
+        type: 'string'
+     }
+
+     #swagger.responses[200] = { 
+        description: 'Staff member deleted successfully. Returns an empty response body.' 
+     }
+     #swagger.responses[404] = { 
+        description: 'Staff member not found. No deletion was performed.' 
+     }
+     #swagger.responses[500] = { 
+        description: 'Internal server error while attempting to delete the staff member' 
+     }
+  */
   try {
     const result = await Staff.deleteStaffMember(req.params.id);
     if (result.deletedCount > 0) {

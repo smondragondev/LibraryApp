@@ -28,7 +28,7 @@ const sampleBooks = [
 async function insertBooks() {
   try {
     const client = await MongoClient.connect(process.env.MONGODB_URL);
-    const db = client.db('Project2');
+    const db = client.db();
     const result = await db.collection('books').insertMany(sampleBooks);
     console.log(`${result.insertedCount} books inserted successfully!`);
     await client.close();

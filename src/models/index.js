@@ -6,7 +6,6 @@ mongoose.Promise = global.Promise;
 const db = {};
 db.mongoose = mongoose;
 db.url = dbConfig.url;
-// TODO: Add the users when is completed
-// db.users = require('./users.js')(mongoose);
+db.authors = require('./authors.js')(mongoose);
 
 module.exports = db;

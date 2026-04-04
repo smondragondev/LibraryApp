@@ -5,6 +5,7 @@ const createError = require('http-errors')
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const {origin} = require('./src/config/core.config');
+const mongoDB = require('./src/config/db.config')
 
 dotenv.config();
 
@@ -53,6 +54,15 @@ db.mongoose
         process.exit();
     });
 
+mongoDB.initDb((err) => {
+  if (err) {
+    console.log(err);
+  } else {
+    app.listen(port, () => {
+      console.log(`Database is listening and node running on port ${port}`);
+    });
+  }
+});
 // 404 handler 
 app.use((req, res, next) => {
     next(createError.NotFound());
