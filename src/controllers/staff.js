@@ -126,7 +126,8 @@ const createStaff = async (req, res) => {
   if (!position || typeof position !== 'string' || position.trim() === '') {
     return res.status(400).json({ error: 'Position is required (e.g. cashier, recepcionist).' });
   }
-  if (!startDay|| typeof birthday !== 'string' || startDay.trim() === '') {
+  // FIXED: was checking typeof birthday instead of typeof startDay
+  if (!startDay || typeof startDay !== 'string' || startDay.trim() === '') {
     return res.status(400).json({ error: 'Start day is required and must be a non-empty string.' });
   }
 
@@ -195,7 +196,8 @@ const updateStaff = async (req, res) => {
   if (!position || typeof position !== 'string' || position.trim() === '') {
     return res.status(400).json({ error: 'Position is required (e.g. cashier, recepcionist).' });
   }
-  if (!startDay|| typeof birthday !== 'string' || startDay.trim() === '') {
+  // FIXED: was checking typeof birthday instead of typeof startDay
+  if (!startDay || typeof startDay !== 'string' || startDay.trim() === '') {
     return res.status(400).json({ error: 'Start day is required and must be a non-empty string.' });
   }
 
