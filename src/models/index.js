@@ -7,5 +7,6 @@ const db = {};
 db.mongoose = mongoose;
 db.url = dbConfig.url;
 db.authors = require('./authors.js')(mongoose);
+db.reservations = require('./reservations.js')(mongoose);
 
 module.exports = db;

@@ -15,21 +15,13 @@ const doc = {
     host: host,
     schemes: [schema],
     definitions: {
-        // TODO: Create our own definitions
-        // CreateUpdateBurialRecord: {
-        //     $firstName: 'Margaret',
-        //     $lastName: 'Thatcher',
-        //     dateOfBirth: '1928-04-15',
-        //     $dateOfDeath: '2023-11-02',
-        //     intermentDate: '2023-11-08',
-        //     $cemeteryName: 'Rosewood Cemetery',
-        //     $section: 'Heritage Row',
-        //     $block: 'C',
-        //     lotNumber: 154,
-        //     graveNumber: 4,
-        //     lat: 1.123,
-        //     lng: -1.232
-        // },
+        CreateUpdateReservation: {
+            $book_id: '69d1380da96d044ab81db11d',
+            $contact_id: '69d137bc664107536435dd92',
+            $issuedDate: '1928-04-15',
+            returnedDate: '2023-11-02',
+            status: 'active'
+        },
     }
 }
 

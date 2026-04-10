@@ -4,6 +4,7 @@ const swagger = require('./swagger');
 const contacts = require('./contacts');
 const books = require('./books');
 const staff = require('./staff');
+const reservations = require('./reservations');
 
 routes.get('/', (req, res) => {
   res.status(200).send({
@@ -16,5 +17,6 @@ routes.use('/authors', authors);
 routes.use('/contacts', contacts);
 routes.use('/books', books);
 routes.use('/staff', staff);
+routes.use('/reservations', reservations);
 
 module.exports = routes;

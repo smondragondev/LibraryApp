@@ -1465,6 +1465,319 @@
           }
         ]
       }
+    },
+    "/reservations/": {
+      "get": {
+        "tags": [
+          "Reservations"
+        ],
+        "summary": "Get all library Reservations",
+        "description": "Retrieves a list of all Reservations registered in the database.",
+        "responses": {
+          "200": {
+            "description": "A list of library Reservations retrieved successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "example": "69d883018b2f1fe6a11c24e4"
+                  },
+                  "book": {
+                    "type": "string",
+                    "example": "69d1380da96d044ab81db11d"
+                  },
+                  "contact": {
+                    "type": "string",
+                    "example": "69d137bc664107536435dd92"
+                  },
+                  "issuedDate": {
+                    "type": "string",
+                    "example": "1928-04-15T00:00:00.000Z"
+                  },
+                  "returnedDate": {
+                    "type": "string",
+                    "example": "2023-11-02T00:00:00.000Z"
+                  },
+                  "status": {
+                    "type": "string",
+                    "example": "active"
+                  },
+                  "__v": {
+                    "type": "number",
+                    "example": 0
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal server error while retrieving the Reservations list"
+          }
+        },
+        "security": [
+          {
+            "github_auth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Reservations"
+        ],
+        "summary": "Create a new reservation",
+        "description": "Creates a new reservation after validating their information.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Create a new reservation.",
+            "schema": {
+              "$ref": "#/definitions/CreateUpdateReservation"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "reservation created successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "65f9a1b2c3d4e5f6g7h8i9j0"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error in the provided data"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "github_auth": []
+          }
+        ]
+      }
+    },
+    "/reservations/{reservation_id}": {
+      "get": {
+        "tags": [
+          "Reservations"
+        ],
+        "summary": "Get a single reservation by ID",
+        "description": "Retrieves a specific reservation from the library collection using their unique MongoDB ObjectId.",
+        "parameters": [
+          {
+            "name": "reservation_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The unique ID of the reservation"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "reservation found and retrieved successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "69d883018b2f1fe6a11c24e4"
+                },
+                "book": {
+                  "type": "string",
+                  "example": "69d1380da96d044ab81db11d"
+                },
+                "contact": {
+                  "type": "string",
+                  "example": "69d137bc664107536435dd92"
+                },
+                "issuedDate": {
+                  "type": "string",
+                  "example": "1928-04-15T00:00:00.000Z"
+                },
+                "returnedDate": {
+                  "type": "string",
+                  "example": "2023-11-02T00:00:00.000Z"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "active"
+                },
+                "__v": {
+                  "type": "number",
+                  "example": 0
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "reservation not found in the library collection"
+          },
+          "500": {
+            "description": "Internal server error while retrieving the reservation details"
+          }
+        },
+        "security": [
+          {
+            "github_auth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Reservations"
+        ],
+        "summary": "Update an reservation",
+        "description": "Updates an existing reservation by their ID.",
+        "parameters": [
+          {
+            "name": "reservation_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The unique ID of the reservation to update"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Create a new reservation.",
+            "schema": {
+              "$ref": "#/definitions/CreateUpdateReservation"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "reservation information updated successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "65f9a1b2c3d4e5f6g7h8i9j0"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error in the provided data"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "github_auth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Reservations"
+        ],
+        "summary": "Delete an reservation",
+        "description": "Permanently removes an reservation from the database using their unique ID.",
+        "parameters": [
+          {
+            "name": "reservation_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The unique ID of the reservation to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "reservation   successfully."
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "reservation not found. No deletion was performed."
+          },
+          "500": {
+            "description": "Internal server error while attempting to delete the reservation"
+          }
+        },
+        "security": [
+          {
+            "github_auth": []
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "CreateUpdateReservation": {
+      "type": "object",
+      "properties": {
+        "book_id": {
+          "type": "string",
+          "example": "69d1380da96d044ab81db11d"
+        },
+        "contact_id": {
+          "type": "string",
+          "example": "69d137bc664107536435dd92"
+        },
+        "issuedDate": {
+          "type": "string",
+          "example": "1928-04-15"
+        },
+        "returnedDate": {
+          "type": "string",
+          "example": "2023-11-02"
+        },
+        "status": {
+          "type": "string",
+          "example": "active"
+        }
+      },
+      "required": [
+        "book_id",
+        "contact_id",
+        "issuedDate"
+      ]
     }
   }
 }

@@ -1,5 +1,4 @@
 const dotenv = require('dotenv');
-const { origin } = require('./core.config');
 dotenv.config();
 
 module.exports = {
