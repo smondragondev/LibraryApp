@@ -8,12 +8,10 @@ const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
 const { origin } = require('./src/config/core.config');
 const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, CALLBACK_URL } = require('./src/config/github.config');
-const mongoDB = require('./src/config/db.config');
 
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
 const db = require('./src/models');
 
 const store = new MongoDBStore({
@@ -21,16 +19,10 @@ const store = new MongoDBStore({
   collection: 'sessions'
 });
 
-var corsOptions = {
-  origin: origin
-};
-
+var corsOptions = { origin: origin };
 app.use(cors(corsOptions));
 
-// parse requests of content-type - application/json
 app.use(express.json());
-
-// parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
 // SESSION
@@ -60,13 +52,8 @@ passport.use(
   )
 );
 
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
-
-passport.deserializeUser((user, done) => {
-  done(null, user);
-});
+passport.serializeUser((user, done) => done(null, user));
+passport.deserializeUser((user, done) => done(null, user));
 
 // AUTH ROUTES
 app.get('/', (req, res) => {
@@ -90,36 +77,13 @@ app.get(
 
 app.get('/logout', (req, res, next) => {
   req.logout(function (err) {
-    if (err) {
-      return next(err);
-    }
+    if (err) return next(err);
     res.redirect('/');
   });
 });
 
 // API ROUTES
 app.use('/', require('./src/routes'));
-
-// DATABASE
-db.mongoose
-  .connect(db.url)
-  .then(() => {
-    console.log('Connected to the database!');
-  })
-  .catch((err) => {
-    console.log('Cannot connect to the database!', err);
-    process.exit();
-  });
-
-mongoDB.initDb((err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    app.listen(port, () => {
-      console.log(`Database is listening and node running on port ${port}`);
-    });
-  }
-});
 
 // 404 handler
 app.use((req, res, next) => {
@@ -136,3 +100,6 @@ app.use((err, req, res, next) => {
     }
   });
 });
+
+
+module.exports = app;
