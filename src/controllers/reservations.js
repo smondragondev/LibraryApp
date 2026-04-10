@@ -3,6 +3,8 @@ const Reservations = db.reservations;
 const { getBookById } = require('../models/book');
 const { getUserById } = require('../models/contact');
 
+const BSONError = require("mongodb/lib/bson").BSONError;
+
 exports.findAll = async (req, res) => {
   /* #swagger.tags = ['Reservations']
      #swagger.summary = 'Get all library Reservations'
@@ -76,12 +78,14 @@ exports.findOne = async (req, res) => {
     const data = await Reservations.findById(id);
     if (!data) {
       return res
-        .status(400)
+        .status(404)
         .send({ message: 'Not found reservation with id: ' + id });
     }
     res.send(data);
   } catch (err) {
-    console.log(err);
+    if (err instanceof BSONError) {
+      return res.status(400).send({ message: 'Invalid Reservation ID: ' + id });
+    }
     res.status(500).send({ message: 'Error retrieving reservation with id: ' + id });
   }
 };
@@ -170,11 +174,11 @@ exports.update = async (req, res) => {
     const book = await getBookById(req.body.book_id);
     const contact = await getUserById(req.body.contact_id);
     const reservation = {
-        book,
-        contact,
-        issuedDate: req.body.issuedDate,
-        returnedDate: req.body.returnedDate,
-        status: req.body.status,
+      book,
+      contact,
+      issuedDate: req.body.issuedDate,
+      returnedDate: req.body.returnedDate,
+      status: req.body.status,
     };
     const data = await Reservations.findByIdAndUpdate(id, reservation);
     if (!data) {
