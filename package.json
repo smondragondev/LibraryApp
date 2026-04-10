@@ -4,10 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "test": "jest --forceExit",
     "swagger": "node swagger.js",
-    "local": "nodemon app.js",
+    "local": "nodemon server.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
@@ -34,7 +34,11 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@shelf/jest-mongodb": "^6.0.2",
+    "@types/jest": "^30.0.0",
     "eslint": "^10.1.0",
-    "globals": "^17.4.0"
+    "globals": "^17.4.0",
+    "jest": "^30.3.0",
+    "supertest": "^7.2.2"
   }
 }
