@@ -22,6 +22,15 @@ const doc = {
             returnedDate: '2023-11-02',
             status: 'active'
         },
+        GetReservation: {
+            $_id: "69d883018b2f1fe6a11c24e4",
+            $book: "69d1380da96d044ab81db11d",
+            $contact: "69d137bc664107536435dd92",
+            $issuedDate: "1928-04-15T00:00:00.000Z",
+            $returnedDate: "2023-11-02T00:00:00.000Z",
+            $status: "active",
+            $__v: 0
+        },
     }
 }
 

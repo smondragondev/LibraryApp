@@ -9,19 +9,10 @@ exports.findAll = async (req, res) => {
   /* #swagger.tags = ['Reservations']
      #swagger.summary = 'Get all library Reservations'
      #swagger.description = 'Retrieves a list of all Reservations registered in the database.'
-     #swagger.security = [{ "github_auth": [] }]
 
      #swagger.responses[200] = { 
         description: 'A list of library Reservations retrieved successfully',
-        schema: [{
-                    "_id": "69d883018b2f1fe6a11c24e4",
-                    "book": "69d1380da96d044ab81db11d",
-                    "contact": "69d137bc664107536435dd92",
-                    "issuedDate": "1928-04-15T00:00:00.000Z",
-                    "returnedDate": "2023-11-02T00:00:00.000Z",
-                    "status": "active",
-                    "__v": 0
-                }]
+        schema: [{ $ref: '#/definitions/GetReservation' }]
      }
 
      #swagger.responses[500] = { 
@@ -45,7 +36,7 @@ exports.findOne = async (req, res) => {
   /* #swagger.tags = ['Reservations']
      #swagger.summary = 'Get a single reservation by ID'
      #swagger.description = 'Retrieves a specific reservation from the library collection using their unique MongoDB ObjectId.'
-     #swagger.security = [{ "github_auth": [] }]
+     
 
      #swagger.parameters['reservation_id'] = {
         in: 'path',
@@ -56,15 +47,7 @@ exports.findOne = async (req, res) => {
 
      #swagger.responses[200] = { 
         description: 'reservation found and retrieved successfully',
-        schema: {
-                "_id": "69d883018b2f1fe6a11c24e4",
-                "book": "69d1380da96d044ab81db11d",
-                "contact": "69d137bc664107536435dd92",
-                "issuedDate": "1928-04-15T00:00:00.000Z",
-                "returnedDate": "2023-11-02T00:00:00.000Z",
-                "status": "active",
-                "__v": 0
-                }
+        schema: { $ref: '#/definitions/GetReservation' }
      }
      #swagger.responses[404] = { 
         description: 'reservation not found in the library collection' 

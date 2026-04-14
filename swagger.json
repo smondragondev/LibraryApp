@@ -188,6 +188,9 @@
           "400": {
             "description": "Validation error in the provided data"
           },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
           "500": {
             "description": "Internal server error"
           }
@@ -371,6 +374,9 @@
           },
           "400": {
             "description": "Validation error in the provided data"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
           },
           "500": {
             "description": "Internal server error"
@@ -1479,37 +1485,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "type": "object",
-                "properties": {
-                  "_id": {
-                    "type": "string",
-                    "example": "69d883018b2f1fe6a11c24e4"
-                  },
-                  "book": {
-                    "type": "string",
-                    "example": "69d1380da96d044ab81db11d"
-                  },
-                  "contact": {
-                    "type": "string",
-                    "example": "69d137bc664107536435dd92"
-                  },
-                  "issuedDate": {
-                    "type": "string",
-                    "example": "1928-04-15T00:00:00.000Z"
-                  },
-                  "returnedDate": {
-                    "type": "string",
-                    "example": "2023-11-02T00:00:00.000Z"
-                  },
-                  "status": {
-                    "type": "string",
-                    "example": "active"
-                  },
-                  "__v": {
-                    "type": "number",
-                    "example": 0
-                  }
-                }
+                "$ref": "#/definitions/GetReservation"
               },
               "xml": {
                 "name": "main"
@@ -1522,12 +1498,7 @@
           "500": {
             "description": "Internal server error while retrieving the Reservations list"
           }
-        },
-        "security": [
-          {
-            "github_auth": []
-          }
-        ]
+        }
       },
       "post": {
         "tags": [
@@ -1601,40 +1572,7 @@
           "200": {
             "description": "reservation found and retrieved successfully",
             "schema": {
-              "type": "object",
-              "properties": {
-                "_id": {
-                  "type": "string",
-                  "example": "69d883018b2f1fe6a11c24e4"
-                },
-                "book": {
-                  "type": "string",
-                  "example": "69d1380da96d044ab81db11d"
-                },
-                "contact": {
-                  "type": "string",
-                  "example": "69d137bc664107536435dd92"
-                },
-                "issuedDate": {
-                  "type": "string",
-                  "example": "1928-04-15T00:00:00.000Z"
-                },
-                "returnedDate": {
-                  "type": "string",
-                  "example": "2023-11-02T00:00:00.000Z"
-                },
-                "status": {
-                  "type": "string",
-                  "example": "active"
-                },
-                "__v": {
-                  "type": "number",
-                  "example": 0
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
+              "$ref": "#/definitions/GetReservation"
             }
           },
           "400": {
@@ -1646,12 +1584,7 @@
           "500": {
             "description": "Internal server error while retrieving the reservation details"
           }
-        },
-        "security": [
-          {
-            "github_auth": []
-          }
-        ]
+        }
       },
       "put": {
         "tags": [
@@ -1778,6 +1711,93 @@
         "contact_id",
         "issuedDate"
       ]
+    },
+    "GetReservation": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "69d883018b2f1fe6a11c24e4"
+        },
+        "book": {
+          "type": "string",
+          "example": "69d1380da96d044ab81db11d"
+        },
+        "contact": {
+          "type": "string",
+          "example": "69d137bc664107536435dd92"
+        },
+        "issuedDate": {
+          "type": "string",
+          "example": "1928-04-15T00:00:00.000Z"
+        },
+        "returnedDate": {
+          "type": "string",
+          "example": "2023-11-02T00:00:00.000Z"
+        },
+        "status": {
+          "type": "string",
+          "example": "active"
+        },
+        "__v": {
+          "type": "number",
+          "example": 0
+        }
+      },
+      "required": [
+        "_id",
+        "book",
+        "contact",
+        "issuedDate",
+        "returnedDate",
+        "status",
+        "__v"
+      ]
+    },
+    "GetAllReservations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "69d883018b2f1fe6a11c24e4"
+          },
+          "book": {
+            "type": "string",
+            "example": "69d1380da96d044ab81db11d"
+          },
+          "contact": {
+            "type": "string",
+            "example": "69d137bc664107536435dd92"
+          },
+          "issuedDate": {
+            "type": "string",
+            "example": "1928-04-15T00:00:00.000Z"
+          },
+          "returnedDate": {
+            "type": "string",
+            "example": "2023-11-02T00:00:00.000Z"
+          },
+          "status": {
+            "type": "string",
+            "example": "active"
+          },
+          "__v": {
+            "type": "number",
+            "example": 0
+          }
+        },
+        "required": [
+          "_id",
+          "book",
+          "contact",
+          "issuedDate",
+          "returnedDate",
+          "status",
+          "__v"
+        ]
+      }
     }
   }
 }
